@@ -191,9 +191,14 @@
                 </a>
             </li> 
             <li class="nav-item">
-                <a class="nav-link" href="#" role="button">
-                    Logout
-                </a>
+                <form action="/Auth/Logout" >
+                    <input type="submit" value="Logout"/>
+                </form>
+                       @*<a class="nav-link" href="#" role="button" asp_>
+                           Logout*@
+                @*<form action="/Auth/">
+            </form>
+        </a>*@
             </li>
         </ul>
     </nav>

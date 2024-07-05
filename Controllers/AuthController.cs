@@ -1,6 +1,7 @@
 ﻿using OST_Inventory_B_2.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc; 
@@ -12,6 +13,8 @@ namespace OST_Inventory_B_2.Controllers
         // GET: Auth
         public ActionResult Login()
         {
+            
+
             ViewBag.Message = "";
             return View();
         }
@@ -34,5 +37,13 @@ namespace OST_Inventory_B_2.Controllers
             return View();
 
         }
+
+        public ActionResult Logout() 
+        {
+            Session.Remove("User");// "User"])
+            //Response.Redirect(Url.Action("Login","Auth"));
+            return RedirectToAction("Login");
+        }
+
     }
 }
