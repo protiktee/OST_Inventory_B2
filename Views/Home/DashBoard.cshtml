@@ -1,0 +1,105 @@
+﻿@using OST_Inventory_B_2.Models;
+
+@{
+    ViewBag.Title = "Home Page";
+} 
+
+<script>
+    function ShowEquipmentEntryModal() {
+        $('#dvEquipmentEntryPanel').dialog({ 
+            title:"Inventory",
+            height: 400,
+            width: 650,
+            modal: true/*,
+            buttons: {
+                "Create an account": addUser,
+                Cancel: function () {
+                    dialog.dialog("close");
+                }
+            },
+            close: function () {
+                form[0].reset();
+                allFields.removeClass("ui-state-error");
+            }*/
+        });
+    }
+</script>
+
+<div class="row">
+    <div class="col col-6">
+        <div class="card text-center">
+            <div class="card-header">
+                List Equipment
+               <button class="btn btn-primary" style="float:right" onclick="return ShowEquipmentEntryModal()">+</button>
+            </div>
+            <div class="card-body">
+                <div style="border:1px solid #b6ff00;max-height:400px;overflow-y:auto">
+                    <table style="width:100%">
+                        <tr style="background:aliceblue">
+                            <th style="display:none">ID</th>
+                            <th>Name</th>
+                            <th>Count</th>
+                            <th>Date</th>
+                        </tr>
+                        @{
+                            List<Equipment> equipment = Equipment.LstEquipment();
+                            foreach (Equipment obj in equipment)
+                            {
+                                <tr>
+                                    <td style="display:none">@obj.EquipmentID</td>
+                                    <td>@obj.Name</td>
+                                    <td>@obj.Count</td>
+                                    <td>@obj.EntryDate</td>
+                                </tr>
+                            }
+                        }
+                    </table>
+                </div>
+                
+            </div>
+            <div class="card-footer text-muted">
+
+            </div>
+        </div>
+    </div>
+    <div class="col col-6">
+        <div class="card text-center">
+            <div class="card-header">
+                Assigned Equipment
+                <button class="btn btn-primary" style="float:right" onclick="return ShowEquipmentEntryModal()">+</button>
+            </div>
+            <div class="card-body">
+                <div style="border:1px solid #b6ff00;max-height:400px;overflow-y:auto">
+                    <table style="width:100%">
+                        <tr style="background:aliceblue">
+                            <th style="display:none">ID</th>
+                            <th>Name</th>
+                            <th>MemberName</th>
+                            <th>MobileNumber</th>
+                        </tr>
+                        @{
+                            List<Equipment> AssignedList = Equipment.LstAssignedEquipment();
+                            foreach (Equipment obj in AssignedList)
+                            {
+                                <tr>
+                                    <td style="display:none">@obj.EquipmentID</td>
+                                    <td>@obj.Name</td>
+                                    <td>@obj.Member.MemberName</td>
+                                    <td>@obj.Member.MobileNumber</td>
+                                </tr>
+                            }
+                        }
+                    </table>
+                </div>
+
+            </div>
+            <div class="card-footer text-muted">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Home/_PartialEquipmentEntry.cshtml")
+
+

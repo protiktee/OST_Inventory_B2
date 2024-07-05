@@ -1,0 +1,87 @@
+﻿@{
+    Layout = null;
+}
+@model OST_Inventory_B_2.Models.Account
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+
+
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+
+    <script>
+        var outMessage = "@ViewBag.Message";
+        var RedirectUrl="@Url.Action("DashBoard","Home")"
+
+        document.addEventListener("DOMContentLoaded", function () {
+            if (outMessage != "") {
+                if (outMessage == "Login Success") {
+                    setTimeout(function () {
+                        window.location.href = RedirectUrl;
+                    }, 2000)
+                }
+                document.getElementById('spnLoginMessage').innerHTML = outMessage;
+            }
+        }) 
+    </script>
+    <script>
+        function ValidateInput() {
+            if (document.getElementById('txtUserName').value == "" || document.getElementById('txtPassword').value == "") {
+                alert('Input needed')
+                return false;
+            }
+            return true;
+        }
+    </script>
+    <style>
+        input {
+            width:100px !important;
+        }
+        input {
+            width: 50px !important;
+        }
+    </style>
+
+</head>
+<body> 
+    @using (Html.BeginForm("Login", "Auth", FormMethod.Post))
+    {
+        <div class="row" style="width: 400px; height: 400px; background: antiquewhite; position: fixed;
+margin: auto; left: 0px; right: 0px; top: 0px; bottom: 0px;padding:15px">
+
+            <center>
+                <h2>Login</h2>
+
+                <label for="basic-url" style="float:left">User Name</label>
+                <div class="input-group mb-3">
+                    @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", id = "txtUserName", style = "width:100%;max-width:100%" })
+                </div>
+
+                <label for="basic-url" style="float: left">Password</label>
+                <div class="input-group mb-3">
+                    @Html.TextBoxFor(model => model.Password, new { @class = "form-control", type = "password", id = "txtPassword", style = "width:100%;max-width:100%" })
+                </div>
+                <br />
+                <input type="submit" class="btn btn-primary" value="login" style="width:100%;max-width:100%" onclick="return ValidateInput()" />
+                <span id="spnLoginMessage"></span>
+            </center>
+
+
+            @*<div class="col col-12">
+
+                </div>
+                <div class="col col-12">
+
+                </div>*@
+        </div>
+    }
+
+    
+</body>
+</html>
