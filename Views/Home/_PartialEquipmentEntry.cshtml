@@ -1,4 +1,24 @@
 ﻿<div id="dvEquipmentEntryPanel" style="display:none;height:400px ;width:700px;">
-    Equipment Name <input type="text" />
-    Equipment Count <input type="text" />
+    @using (Html.BeginForm("SaveEquipment", "Home", FormMethod.Post))
+    {
+        <div class="row">
+            <div class="col col-12">
+                Equipment Name
+                <input type="text" name="txtEquipmentName" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-12">
+                Equipment Count
+                <input type="text" name="txtEquipmentCount" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-12">
+                <input type="submit" value="save" name="btnSubmit"/>
+            </div>
+        </div> 
+    }
+
+
 </div>

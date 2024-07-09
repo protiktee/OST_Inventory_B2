@@ -38,24 +38,37 @@
         {
             Response.Redirect(Url.Action("Login", "Home"));
         }
+        string SessionMsg = "";
+        if (@Session["sessionMsg"] != null)
+        {
+            SessionMsg = @Session["sessionMsg"].ToString();
+            Session["sessionMsg"] = "";
+        }
     }
-    <script>
+<script>
     var sessionUser = '@Session["User"].ToString()'
     var RedirectUrl="@Url.Action("Login","Auth")"
     if (sessionUser == '') {
         window.location.href = RedirectUrl;
     }
-        //var IsIdle = false;
-        //var timeStart = new date();
-        //$(document).ready(function () {
-        //    //setInterval(function () {
-        //    //    $('body').on('hover', function () {
-        //    //        timeStart = new date();
-        //    //        IsIdle = false;
-        //    //    })
-        //    //}, 1000)
-        //})
-    </script>
+
+    var sessionMsg = '@SessionMsg' 
+    $(document).ready(function () {
+        if (sessionMsg != '') {
+            $('#pAlertMsg').html(sessionMsg);
+            $('#dialog').dialog({
+                modal: true,
+                buttons: { 
+                    Ok: function () {
+                        $('#dialog').dialog("close");
+                    } 
+                }
+            });
+            sessionMsg = '';
+        }
+    })
+    
+</script>
 </head>
 <body>
     @*<div class="preloader flex-column justify-content-center align-items-center">
@@ -189,16 +202,16 @@
                 <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                     <i class="fas fa-expand-arrows-alt"></i>
                 </a>
-            </li> 
+            </li>
             <li class="nav-item">
-                <form action="/Auth/Logout" >
-                    <input type="submit" value="Logout"/>
+                <form action="/Auth/Logout">
+                    <input type="submit" value="Logout" />
                 </form>
-                       @*<a class="nav-link" href="#" role="button" asp_>
-                           Logout*@
+                @*<a class="nav-link" href="#" role="button" asp_>
+                    Logout*@
                 @*<form action="/Auth/">
-            </form>
-        </a>*@
+                        </form>
+                    </a>*@
             </li>
         </ul>
     </nav>
@@ -215,10 +228,10 @@
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="~/Content/img/avatar.jpg" class="img-circle elevation-2" alt="User Image" >
+                    <img src="~/Content/img/avatar.jpg" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">@Session["User"].ToString() </a> 
+                    <a href="#" class="d-block">@Session["User"].ToString() </a>
                 </div>
             </div>
 
@@ -246,8 +259,8 @@
                                 Dashboard
                                 <i class="right fas fa-angle-left"></i>
                             </p>
-                        </a> 
-                    </li>     
+                        </a>
+                    </li>
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
@@ -281,7 +294,7 @@
                 </div>
             </div><!-- /.container-fluid -->
         </section>
-        <!-- /.content --> 
+        <!-- /.content -->
     </div>
     <footer class="main-footer">
         <strong>Copyright &copy; 2024</strong>
@@ -293,7 +306,11 @@
 
 
 
-    <!-- overlayScrollbars --> 
+    <!-- overlayScrollbars -->
     <script src="~/Content/plugin/OverlayScrollbars/js/OverlayScrollbars.min.js"></script>
+
+    <div id="dialog" title="Basic dialog">
+        <p id="pAlertMsg"></p>
+    </div>
 </body>
 </html>

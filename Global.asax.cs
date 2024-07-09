@@ -17,5 +17,9 @@ namespace OST_Inventory_B_2
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+        //protected void Session_Start()
+        //{ 
+
+        //}
     }
 }

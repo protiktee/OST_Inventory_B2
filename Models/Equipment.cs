@@ -23,6 +23,28 @@ namespace OST_Inventory_B_2.Models
         public Equipment() {
             Member=new Member();
         }
+
+        public static int SaveEquipment(string Name,int count)
+        {
+            string ConnString = ConfigurationManager.ConnectionStrings["ConnString"].ConnectionString;
+            SqlConnection sqlConnection = new SqlConnection(ConnString);
+            sqlConnection.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = sqlConnection;
+            cmd.CommandText = "dbo.spOST_InsEquipment";
+            cmd.CommandType= CommandType.StoredProcedure;
+            cmd.Parameters.Clear();
+            cmd.Parameters.Add(new SqlParameter("@Name", Name));
+            cmd.Parameters.Add(new SqlParameter("@EcCount", count));
+            cmd.CommandTimeout = 0;
+
+            int result=cmd.ExecuteNonQuery();
+
+            cmd.Dispose();
+            sqlConnection.Close();
+
+            return result;
+        }
         public static List<Equipment> LstEquipment()
         {
             List<Equipment> plstData = new List<Equipment>(); 
