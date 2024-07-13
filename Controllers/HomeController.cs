@@ -18,7 +18,10 @@ namespace OST_Inventory_B_2.Controllers
             ViewBag.dataTable= MVCViewToolKit.DynamicTableMaker.MakeTableDynamic(dataTable);
             return View();
         }
-
+        public ActionResult Test()
+        { 
+            return View();
+        }
         [HttpPost]
         public ActionResult SaveEquipment(FormCollection formCollection,string btnSubmit) 
         {

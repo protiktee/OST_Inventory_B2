@@ -1,0 +1,23 @@
+﻿@using OST_Inventory_B_2.Models;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+Members
+<select>
+    @{
+        List<Member> lstMember = Member.LstMember();
+        foreach (Member obj in lstMember)
+        {
+            <option value="@obj.MemberId">@obj.MemberName</option>
+        }
+    }
+
+</select> 
+<script>
+    $(document).ready(function () {
+        $('#txtDatetime').datepicker();
+    })
+</script>
+<input type="text" id="txtDatetime" />
+
+

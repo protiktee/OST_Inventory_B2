@@ -26,6 +26,7 @@ namespace OST_Inventory_B_2.Models
 
         public static int SaveEquipment(string Name,int count)
         {
+            int result = 0;
             string ConnString = ConfigurationManager.ConnectionStrings["ConnString"].ConnectionString;
             SqlConnection sqlConnection = new SqlConnection(ConnString);
             sqlConnection.Open();
@@ -38,7 +39,14 @@ namespace OST_Inventory_B_2.Models
             cmd.Parameters.Add(new SqlParameter("@EcCount", count));
             cmd.CommandTimeout = 0;
 
-            int result=cmd.ExecuteNonQuery();
+            try
+            {
+                result = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            { 
+                string sds= ex.Message;
+            }
 
             cmd.Dispose();
             sqlConnection.Close();
