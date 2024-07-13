@@ -11,14 +11,14 @@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/Site.css" rel="stylesheet" />
 
-
+    @Scripts.Render("~/bundles/jquery")
     <script src="~/Scripts/bootstrap.min.js"></script>
 
-
+    <link href="~/Content/plugin/Toasts/toastr.min.css" rel="stylesheet" />
+    <script src="~/Content/plugin/Toasts/toastr.min.js"></script> 
     <script>
         var outMessage = "@ViewBag.Message";
         var RedirectUrl="@Url.Action("DashBoard","Home")"
-
         document.addEventListener("DOMContentLoaded", function () {
             if (outMessage != "") {
                 if (outMessage == "Login Success") {
@@ -26,10 +26,11 @@
                         window.location.href = RedirectUrl;
                     }, 2000)
                 }
-                document.getElementById('spnLoginMessage').innerHTML = outMessage;
+                toastr.success(outMessage) 
+                //document.getElementById('spnLoginMessage').innerHTML = outMessage;
             }
-        }) 
-    </script>
+        })
+    </script> 
     <script>
         function ValidateInput() {
             if (document.getElementById('txtUserName').value == "" || document.getElementById('txtPassword').value == "") {
@@ -41,15 +42,16 @@
     </script>
     <style>
         input {
-            width:100px !important;
+            width: 100px !important;
         }
+
         input {
             width: 50px !important;
         }
     </style>
 
 </head>
-<body> 
+<body>
     @using (Html.BeginForm("Login", "Auth", FormMethod.Post))
     {
         <div class="row" style="width: 400px; height: 400px; background: antiquewhite; position: fixed;
@@ -69,7 +71,7 @@ margin: auto; left: 0px; right: 0px; top: 0px; bottom: 0px;padding:15px">
                 </div>
                 <br />
                 <input type="submit" class="btn btn-primary" value="login" style="width:100%;max-width:100%" onclick="return ValidateInput()" />
-                <span id="spnLoginMessage"></span>
+                @*<span id="spnLoginMessage"></span>*@
             </center>
 
 
@@ -81,7 +83,6 @@ margin: auto; left: 0px; right: 0px; top: 0px; bottom: 0px;padding:15px">
                 </div>*@
         </div>
     }
-
     
 </body>
 </html>

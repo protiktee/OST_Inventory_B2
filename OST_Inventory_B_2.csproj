@@ -167,7 +167,6 @@
     <Content Include="Content\build_js\NavbarSearch.js" />
     <Content Include="Content\build_js\PushMenu.js" />
     <Content Include="Content\build_js\SidebarSearch.js" />
-    <Content Include="Content\build_js\Toasts.js" />
     <Content Include="Content\build_js\TodoList.js" />
     <Content Include="Content\build_js\Treeview.js" />
     <Content Include="Content\img\avatar.jpg" />
@@ -195,6 +194,9 @@
     <Content Include="Content\plugin\OverlayScrollbars\js\jquery.overlayScrollbars.min.js" />
     <Content Include="Content\plugin\OverlayScrollbars\js\OverlayScrollbars.js" />
     <Content Include="Content\plugin\OverlayScrollbars\js\OverlayScrollbars.min.js" />
+    <Content Include="Content\plugin\Toasts\toastr.css" />
+    <Content Include="Content\plugin\Toasts\toastr.min.css" />
+    <Content Include="Content\plugin\Toasts\toastr.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
