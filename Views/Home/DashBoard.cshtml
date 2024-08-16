@@ -6,6 +6,55 @@
 } 
 
 <script>
+    /*$(document).ready(function () {
+        //$.get("http://localhost:50372/Home/TestAPI", function (response) {
+        //    alert(response)
+        //})
+        //var objPersonal= {
+        //     Name:"abc",
+        //    AGE: "20",
+        //    Height: "5.9"
+        // }
+        //$.post("http://localhost:50372/Home/TestAPIPost?type=999", function (response) {
+        //    alert(response)
+        //});
+        //$.ajax({
+        //    type: "POST",
+        //    url: "http://localhost:50372/Home/TestAPIPost",
+        //    data: { "objPersonal": JSON.stringify(objPersonal) },
+        //    success: success,
+        //    dataType: dataType
+        //});
+        
+
+        var ListObject = [];
+        var objPersonal1 = {
+            Name: "abc",
+            AGE: "20",
+            Height: "5.9"
+        }
+        ListObject.push(objPersonal1)
+
+        var objPersonal2 = {
+            Name: "xyz",
+            AGE: "20",
+            Height: "5.9"
+        }
+        ListObject.push(objPersonal2)
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:50372/Home/TestAPIPost",
+            data: { "ListPersonal": ListObject } 
+        });
+        //$.post(
+        //    "http://localhost:50372/Home/TestAPIPost",
+        //    ListObject)
+        //    .done(function (data) {
+        //        alert("Data Loaded: " + data);
+        //    });
+    })*/
+
+
     function ShowEquipmentEntryModal() {
         $('#dvEquipmentEntryPanel').dialog({ 
             title:"Inventory",

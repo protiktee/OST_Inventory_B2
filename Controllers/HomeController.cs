@@ -3,12 +3,56 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 
 namespace OST_Inventory_B_2.Controllers
 {
     public class HomeController : Controller
     {
+        /*public class Personal 
+        {
+            public string Name { get; set; }
+            public string AGE { get; set; }
+            public string Height { get; set; }
+        }
+        [HttpGet]
+        public ActionResult TestAPI()
+        {
+            //return Json("API result", JsonRequestBehavior.AllowGet);
+
+            //Personal personal = new Personal();
+            //personal.Name = "ABC";
+            //personal.AGE = "10";
+            //personal.Height = "5.7";
+            //return Json(personal, JsonRequestBehavior.AllowGet);
+
+            List<Personal> lstPersonal = new List<Personal>();
+            Personal personal = new Personal();
+            personal.Name = "ABC";
+            personal.AGE = "10";
+            personal.Height = "5.7";
+            lstPersonal.Add(personal);
+
+            personal = new Personal();
+            personal.Name = "xyz";
+            personal.AGE = "10";
+            personal.Height = "5.7";
+            lstPersonal.Add(personal);
+
+            personal = new Personal();
+            personal.Name = "pqr";
+            personal.AGE = "10";
+            personal.Height = "5.7";
+            lstPersonal.Add(personal);
+
+            return Json(lstPersonal, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult TestAPIPost(List<Personal> ListPersonal)
+        {  
+            return Json(ListPersonal, JsonRequestBehavior.AllowGet);
+        }*/
         public ActionResult DashBoard()
         {
             //Session["sessionMsg"] = "";
