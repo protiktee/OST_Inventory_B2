@@ -1,28 +1,74 @@
-﻿<div id="dvEquipmentEntryPanel" style="display:none;height:400px ;width:700px;">
+﻿@using System.Data;
+@using OST_Inventory_B_2.Models;
+
+
+<div id="dvCustomerAssignmentModal" style="display:none;height:400px ;width:700px;">
     @using (Html.BeginForm("SaveEquipment", "Home", FormMethod.Post))
     {
         <div class="row">
             <div class="col col-12">
                 <div class="input-group input-group-sm mb-3">
-                    <span class="input-group-text" id="txtEquipmentName-sizing-sm">Equipment Name</span>
-                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="txtEquipmentName-sizing-sm" name="txtEquipmentName">
-                </div> 
+                    <span class="input-group-text" id="txtCustomerName-sizing-sm">Customer Name</span>
+                    <select type="text" class="form-control" aria-label="Sizing example input" aria-describedby="txtCustomerName-sizing-sm" name="ddlCustomerName"> 
+                        @{
+                            DataTable dtCustomer = Customer.LstCustomer();
+                            //string HtmlData=MVCViewToolKit.DynamicTableMaker.MakeTableDynamic(dtAssignedEquip);
+                            //CustomerID	CustomerName	CustomerMobile	CustAddress	EquiCount	EquipmentName
+
+                            var pdataCustomer = (from p in dtCustomer.AsEnumerable()
+                                         select new
+                                         {
+                                             CustomerID = p.Field<Int32>("CustomerID"),
+                                             CustomerName = p.Field<string>("CustomerName") 
+                                         }
+                                         ).ToList();
+                            foreach (var obj in pdataCustomer)
+                            { 
+                                <option value="@obj.CustomerID">@obj.CustomerName</option>
+                            }
+                        }
+                    </select>
+                </div>
             </div>
         </div>
         <div class="row">
             <div class="col col-12">
                 <div class="input-group input-group-sm mb-3">
-                    <span class="input-group-text" id="txtEquipmentCount-sizing-sm">Equipment Count</span>
-                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="txtEquipmentCount-sizing-sm" name="txtEquipmentCount">
-                </div> 
+                    <span class="input-group-text" id="txtEquipment-sizing-sm">Equipment</span>
+                    <select type="text" class="form-control" aria-label="Sizing example input" aria-describedby="txtEquipment-sizing-sm" name="ddlEquipment">
+                        @{ 
+                            DataTable dataTable = Equipment.dtEquipment();
+                            var pListEquipment = (from p in dataTable.AsEnumerable()
+                                                  select new
+                                                  {
+                                                      EquipmentID = p.Field<Int32>("EquipmentId"),
+                                                      Name = p.Field<string>("EquipmentName"),
+                                                      Count = p.Field<Int32>("Quantity")
+                                                  }
+                                    ).ToList();
+                            foreach(var objEqui in pListEquipment)
+                            { 
+                                <option value="@objEqui.EquipmentID"> @objEqui.Name</option>
+                            }
+                        }
+                    </select> 
+                </div>
             </div>
         </div>
         <div class="row">
             <div class="col col-12">
-                <input type="submit" value="save" name="btnSubmit" class="btn btn-sm btn-primary"/>
+                <div class="input-group input-group-sm mb-3">
+                    <span class="input-group-text" id="txtEquipmentCount-sizing-sm">Count</span>
+                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="txtEquipmentCount-sizing-sm" name="txtEquipmentCount">
+                </div>
             </div>
-        </div> 
-    }
+        </div>
+        <div class="row">
+            <div class="col col-12">
+                <input type="submit" value="save" name="btnSubmit" class="btn btn-sm btn-primary" />
+            </div>
+        </div>
+                            }
 
 
 </div>

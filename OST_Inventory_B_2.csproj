@@ -134,6 +134,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Equipment.cs" />
     <Compile Include="Models\Member.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -256,6 +257,7 @@
     <Content Include="Views\Auth\Login.cshtml" />
     <Content Include="Views\Home\_PartialEquipmentEntry.cshtml" />
     <Content Include="Views\Home\Test.cshtml" />
+    <Content Include="Views\Home\_PartialAssignmentEntry.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

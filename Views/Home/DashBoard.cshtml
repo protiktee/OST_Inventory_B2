@@ -73,6 +73,25 @@
             }*/
         });
     }
+
+    function ShowassignmentEntryModal() {
+        $('#dvCustomerAssignmentModal').dialog({
+            title: "Inventory Assignment",
+            height: 400,
+            width: 650,
+            modal: true/*,
+        buttons: {
+            "Create an account": addUser,
+            Cancel: function () {
+                dialog.dialog("close");
+            }
+        },
+        close: function () {
+            form[0].reset();
+            allFields.removeClass("ui-state-error");
+        }*/
+            });
+    }
 </script>
 
 <div class="row">
@@ -139,30 +158,49 @@
         <div class="card text-center">
             <div class="card-header">
                 Assigned Equipment
-                <button class="btn btn-primary" style="float:right" onclick="return ShowEquipmentEntryModal()">+</button>
+                <button class="btn btn-primary" style="float:right" onclick="return ShowassignmentEntryModal()">+</button>
             </div>
             <div class="card-body">
                 <div style="border:1px solid #b6ff00;max-height:400px;overflow-y:auto">
-                    <table style="width:100%">
-                        <tr style="background:aliceblue">
-                            <th style="display:none">ID</th>
-                            <th>Name</th>
-                            <th>MemberName</th>
-                            <th>MobileNumber</th>
-                        </tr>
-                        @{
-                            List<Equipment> AssignedList = Equipment.LstAssignedEquipment();
-                            foreach (Equipment obj in AssignedList)
-                            {
-                                <tr>
-                                    <td style="display:none">@obj.EquipmentID</td>
-                                    <td>@obj.Name</td>
-                                    <td>@obj.Member.MemberName</td>
-                                    <td>@obj.Member.MobileNumber</td>
-                                </tr>
+                    <form method="post" action="/Home/SelectCustomer">
+                        <table style="width:100%">
+                            <tr style="background:aliceblue">
+                                <th>ID</th>
+                                <th>Customer Name</th>
+                                <th>Equipment Name</th>
+                                <th>Count</th>
+                            </tr>
+                            @{
+                                DataTable dtAssignedEquip = Equipment.LstAssignedEquipment();
+                                //string HtmlData=MVCViewToolKit.DynamicTableMaker.MakeTableDynamic(dtAssignedEquip);
+                                //CustomerID	CustomerName	CustomerMobile	CustAddress	EquiCount	EquipmentName
+
+                                var pdata = (from p in dtAssignedEquip.AsEnumerable()
+                                             select new
+                                             {
+                                                 CustomerID = p.Field<Int32>("CustomerID"),
+                                                 CustomerName = p.Field<string>("CustomerName"),
+                                                 EquipmentName = p.Field<string>("EquipmentName"),
+                                                 EquiCount = p.Field<Int32>("EquiCount")
+                                             }
+                                             ).ToList();
+                                foreach (var obj in pdata)
+                                {
+                                    <tr>
+                                        <td>
+                                            <a style="color:blue" onclick="javascript:$('#btnSelectCust_@obj.CustomerID').click(); return false;">Select</a>
+                                            <input type="submit" class="d-none btn btn-sm btn-primary" id="btnSelectCust_@obj.CustomerID" name="btnSubmit" value="@obj.CustomerID"/> 
+                                        </td>
+                                        <td>@obj.CustomerName</td>
+                                        <td>@obj.EquipmentName</td>
+                                        <td>@obj.EquiCount</td>
+                                    </tr>
+                                }
                             }
-                        }
-                    </table>
+                            @*@Html.Raw(HtmlData)*@
+                        </table>
+                    </form>
+                    
                 </div>
 
             </div>
