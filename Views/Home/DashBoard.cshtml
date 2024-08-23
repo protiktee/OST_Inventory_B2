@@ -1,9 +1,9 @@
 ﻿@using OST_Inventory_B_2.Models;
-@using System.Data; 
- 
+@using System.Data;
+
 @{
     ViewBag.Title = "Home Page";
-} 
+}
 
 <script>
     /*$(document).ready(function () {
@@ -25,7 +25,7 @@
         //    success: success,
         //    dataType: dataType
         //});
-        
+
 
         var ListObject = [];
         var objPersonal1 = {
@@ -44,7 +44,7 @@
         $.ajax({
             type: "POST",
             url: "http://localhost:50372/Home/TestAPIPost",
-            data: { "ListPersonal": ListObject } 
+            data: { "ListPersonal": ListObject }
         });
         //$.post(
         //    "http://localhost:50372/Home/TestAPIPost",
@@ -56,8 +56,8 @@
 
 
     function ShowEquipmentEntryModal() {
-        $('#dvEquipmentEntryPanel').dialog({ 
-            title:"Inventory",
+        $('#dvEquipmentEntryPanel').dialog({
+            title: "Inventory",
             height: 400,
             width: 650,
             modal: true/*,
@@ -80,55 +80,55 @@
         <div class="card text-center">
             <div class="card-header">
                 List Equipment
-               <button class="btn btn-primary" style="float:right" onclick="return ShowEquipmentEntryModal()">+</button>
+                <button class="btn btn-primary" style="float:right" onclick="return ShowEquipmentEntryModal()">+</button>
             </div>
             <div class="card-body">
                 <div style="border:1px solid #b6ff00;max-height:400px;overflow-y:auto">
                     <table style="width:100%">
                         @Html.Raw((String)ViewBag.dataTable)
                         @*<tr style="background:aliceblue">
-                            <th style="display:none">ID</th>
-                            <th>Name</th>
-                            <th>Count</th>
-                            <th>Date</th>
-                        </tr>*@
+                                <th style="display:none">ID</th>
+                                <th>Name</th>
+                                <th>Count</th>
+                                <th>Date</th>
+                            </tr>*@
                         @{
                             @*System.Data.DataTable dataTable = new System.Data.DataTable();
-                            dataTable = Equipment.dtEquipment();
+                                dataTable = Equipment.dtEquipment();
 
-                            var pData = (from p in dataTable.AsEnumerable()
-                                         select new
-                                         {
-                                             EquipmentID = p.Field<Int32>("EquipmentId"),
-                                             Name = p.Field<string>("EquipmentName"),
-                                             Count = p.Field<Int32>("Quantity"),
-                                             //  Stock
-                                             EntryDate = p.Field<DateTime>("EntryDate")
-                                         }
-                                         ).ToList();
-                            foreach (var obj in pData)
-                            {
-                                <tr>
-                                    <td style="display:none">@obj.EquipmentID</td>
-                                    <td>@obj.Name</td>
-                                    <td>@obj.Count</td>
-                                    <td>@obj.EntryDate</td>
-                                </tr>
-                            }*@
+                                var pData = (from p in dataTable.AsEnumerable()
+                                             select new
+                                             {
+                                                 EquipmentID = p.Field<Int32>("EquipmentId"),
+                                                 Name = p.Field<string>("EquipmentName"),
+                                                 Count = p.Field<Int32>("Quantity"),
+                                                 //  Stock
+                                                 EntryDate = p.Field<DateTime>("EntryDate")
+                                             }
+                                             ).ToList();
+                                foreach (var obj in pData)
+                                {
+                                    <tr>
+                                        <td style="display:none">@obj.EquipmentID</td>
+                                        <td>@obj.Name</td>
+                                        <td>@obj.Count</td>
+                                        <td>@obj.EntryDate</td>
+                                    </tr>
+                                }*@
                             @*List<Equipment> equipment = Equipment.LstEquipment();
-            foreach (Equipment obj in equipment)
-            {
-                <tr>
-                    <td style="display:none">@obj.EquipmentID</td>
-                    <td>@obj.Name</td>
-                    <td>@obj.Count</td>
-                    <td>@obj.EntryDate</td>
-                </tr>
-            }*@
+                                foreach (Equipment obj in equipment)
+                                {
+                                    <tr>
+                                        <td style="display:none">@obj.EquipmentID</td>
+                                        <td>@obj.Name</td>
+                                        <td>@obj.Count</td>
+                                        <td>@obj.EntryDate</td>
+                                    </tr>
+                                }*@
                         }
                     </table>
                 </div>
-                
+
             </div>
             <div class="card-footer text-muted">
 
@@ -173,6 +173,7 @@
     </div>
 </div>
 
-@Html.Partial("~/Views/Home/_PartialEquipmentEntry.cshtml")
+@Html.Partial("~/Views/Home/_PartialEquipmentEntry.cshtml") 
+@Html.Partial("~/Views/Home/_PartialAssignmentEntry.cshtml")
 
 

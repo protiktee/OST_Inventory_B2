@@ -15,9 +15,9 @@ namespace OST_Inventory_B_2.Controllers
             public string Name { get; set; }
             public string AGE { get; set; }
             public string Height { get; set; }
-        }
-        [HttpGet]
-        public ActionResult TestAPI()
+        }*/
+        /*[HttpGet]
+        public ActionResult TestAPI(int id)
         {
             //return Json("API result", JsonRequestBehavior.AllowGet);
 
@@ -46,9 +46,14 @@ namespace OST_Inventory_B_2.Controllers
             personal.Height = "5.7";
             lstPersonal.Add(personal);
 
-            return Json(lstPersonal, JsonRequestBehavior.AllowGet);
-        }
-        [HttpPost]
+            return Json(id.ToString(), JsonRequestBehavior.AllowGet);
+        }*/
+        /*[HttpPost]
+        public ActionResult TestAPIPostForModel(Personal objPersonal)
+        {
+            return Json(objPersonal, JsonRequestBehavior.AllowGet);
+        }*/
+        /*[HttpPost]
         public ActionResult TestAPIPost(List<Personal> ListPersonal)
         {  
             return Json(ListPersonal, JsonRequestBehavior.AllowGet);
