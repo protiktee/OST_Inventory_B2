@@ -26,7 +26,7 @@ namespace OST_Inventory_B_2.Models
             connection.Open();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = connection;
-            cmd.CommandText = "dbo.spOST_LstCustomer";
+            cmd.CommandText = "dbo.spOst_LstMember";
             //cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Clear();
             //cmd.Parameters.Add(new SqlParameter("@UserName", this.UserName));
@@ -42,8 +42,8 @@ namespace OST_Inventory_B_2.Models
                 while (mrd.Read())
                 {
                     Member obj = new Member();
-                    obj.MemberName = mrd["CustomerName"].ToString(); 
-                        obj.MemberId = Convert.ToInt32(mrd["CustomerID"].ToString());
+                    obj.MemberName = mrd["Name"].ToString(); 
+                    obj.MemberId = Convert.ToInt32(mrd["id"].ToString());
                     plstData.Add(obj);
                 }
             }

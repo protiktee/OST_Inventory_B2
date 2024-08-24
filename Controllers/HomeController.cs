@@ -88,5 +88,22 @@ namespace OST_Inventory_B_2.Controllers
             }
             return RedirectToAction("DashBoard"); 
         }
+        [HttpPost]
+        public ActionResult SaveAssignment(FormCollection formCollection, string btnSubmit)
+        {
+            Session["sessionMsg"] = "";
+            if (btnSubmit == "save")
+            {
+                string Name = formCollection["txtEquipmentName"].ToString();
+                int Count = Convert.ToInt32(formCollection["txtEquipmentCount"].ToString());
+
+                int result = Equipment.SaveEquipment(Name, Count);
+                if (result == 1)
+                {
+                    Session["sessionMsg"] = "Save Successfully";
+                }
+            }
+            return RedirectToAction("DashBoard");
+        }
     }
 }

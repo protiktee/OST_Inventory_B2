@@ -24,7 +24,8 @@ namespace OST_Inventory_B_2.Controllers
             if (String.IsNullOrEmpty(Model.UserName) || String.IsNullOrEmpty(Model.Password) )
                 ViewBag.Message = "Input needed";
 
-            if (Model.UserName == "Protik" && Model.Password == "123")
+            bool isExists = Model.CheckMember();
+            if (isExists)
             {
                 Session["User"] = Model.UserName;
                 ViewBag.Message = "Login Success"; 

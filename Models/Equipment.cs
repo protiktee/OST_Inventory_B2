@@ -129,23 +129,30 @@ namespace OST_Inventory_B_2.Models
             return dataTable;
             //return list;
         }
-        public static List<Equipment> LstAssignedEquipment()
+        public static DataTable LstAssignedEquipment()
         {
-            List<Equipment> list = new List<Equipment>();
+            //List<Equipment> plstData = new List<Equipment>();
+            DataTable dataTable = new DataTable();
+            string ConnString = ConfigurationManager.ConnectionStrings["ConnString"].ConnectionString;
+            //ApplciationName
+            SqlConnection connection = new SqlConnection(ConnString);
+            connection.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = connection;
+            cmd.CommandText = "dbo.spOsp_LstCustomerEquiipment";
+            //cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Clear();
+            //cmd.Parameters.Add(new SqlParameter("@UserName", this.UserName));
+            //cmd.Parameters.Add(new SqlParameter("@Password", this.Password));
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandTimeout = 0;
 
-            for (int i = 0; i < 30; i++)
-            {
-                Equipment equipment = new Equipment();
-                equipment.Name = "Laptop " + i.ToString();
-                equipment.Count = i * 5;
-                equipment.EntryDate = DateTime.Now.Date;
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            adapter.Fill(dataTable);
 
-                equipment.Member.MemberName = "Member " + i.ToString();
-                equipment.Member.MemberDesignation = "SSE";
-                equipment.Member.MobileNumber = "1245869";
-                list.Add(equipment);
-            }
-            return list;
+            cmd.Dispose();
+            connection.Close();
+            return dataTable;
         }
     }
 }

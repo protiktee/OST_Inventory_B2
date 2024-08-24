@@ -73,6 +73,24 @@
             }*/
         });
     }
+    function ShowAssignmentEntryModal() {
+        $('#dvAssignmentEntryPanel').dialog({
+            title: "Inventory",
+            height: 400,
+            width: 650,
+            modal: true/*,
+        buttons: {
+            "Create an account": addUser,
+            Cancel: function () {
+                dialog.dialog("close");
+            }
+        },
+        close: function () {
+            form[0].reset();
+            allFields.removeClass("ui-state-error");
+        }*/
+        });
+    }
 </script>
 
 <div class="row">
@@ -139,29 +157,16 @@
         <div class="card text-center">
             <div class="card-header">
                 Assigned Equipment
-                <button class="btn btn-primary" style="float:right" onclick="return ShowEquipmentEntryModal()">+</button>
+                <button class="btn btn-primary" style="float:right" onclick="return ShowAssignmentEntryModal()">+</button>
             </div>
             <div class="card-body">
                 <div style="border:1px solid #b6ff00;max-height:400px;overflow-y:auto">
-                    <table style="width:100%">
-                        <tr style="background:aliceblue">
-                            <th style="display:none">ID</th>
-                            <th>Name</th>
-                            <th>MemberName</th>
-                            <th>MobileNumber</th>
-                        </tr>
+                    <table style="width:100%"> 
                         @{
-                            List<Equipment> AssignedList = Equipment.LstAssignedEquipment();
-                            foreach (Equipment obj in AssignedList)
-                            {
-                                <tr>
-                                    <td style="display:none">@obj.EquipmentID</td>
-                                    <td>@obj.Name</td>
-                                    <td>@obj.Member.MemberName</td>
-                                    <td>@obj.Member.MobileNumber</td>
-                                </tr>
-                            }
+                            DataTable dtAssignedList = Equipment.LstAssignedEquipment();
+                            string custData=MVCViewToolKit.DynamicTableMaker.MakeTableDynamic(dtAssignedList,"CustomerID");
                         }
+                        @Html.Raw(custData)
                     </table>
                 </div>
 

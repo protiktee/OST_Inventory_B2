@@ -1,27 +1,64 @@
-﻿<div id="dvEquipmentEntryPanel" style="display:none;height:400px ;width:700px;">
-    @using (Html.BeginForm("SaveEquipment", "Home", FormMethod.Post))
+﻿@using OST_Inventory_B_2.Models;
+@using System.Data;
+<div id="dvAssignmentEntryPanel" style="display:none;height:400px ;width:700px;">
+     
+
+    @using (Html.BeginForm("SaveAssignment", "Home", FormMethod.Post))
     {
+
+        DataTable dtCustomer = Customer.LstCustomer();
+        List<Equipment> lstEquipment = Equipment.LstEquipment();
+
         <div class="row">
             <div class="col col-12">
                 <div class="input-group input-group-sm mb-3">
-                    <span class="input-group-text" id="txtEquipmentName-sizing-sm">Equipment Name</span>
-                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="txtEquipmentName-sizing-sm" name="txtEquipmentName">
-                </div> 
+                    <span class="input-group-text" id="ddlCustomerName-sizing-sm">Customer Name</span>
+                    <select type="text" class="form-control" aria-label="Sizing example input" aria-describedby="ddlCustomerName-sizing-sm" name="ddlCustomerName">
+                        @{ 
+                            var pDataCust = (from p in dtCustomer.AsEnumerable()
+                                             select new
+                                             {
+                                                 CustomerID =p.Field<Int32>("CustomerID"),
+                                                 CustomerName = p.Field<string>("CustomerName")
+                                             }).ToList();
+                            foreach(var obj in pDataCust)
+                            {
+                               <option value="@obj.CustomerID">@obj.CustomerName</option>
+                            }
+
+                        }
+                    </select>
+                </div>
             </div>
         </div>
         <div class="row">
             <div class="col col-12">
                 <div class="input-group input-group-sm mb-3">
-                    <span class="input-group-text" id="txtEquipmentCount-sizing-sm">Equipment Count</span>
-                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="txtEquipmentCount-sizing-sm" name="txtEquipmentCount">
-                </div> 
+                    <span class="input-group-text" id="ddlEquipmentName-sizing-sm">Equipment Name</span>
+                    <select type="text" class="form-control" aria-label="Sizing example input" aria-describedby="ddlEquipmentName-sizing-sm" name="ddlEquipmentName">
+                        @{ 
+                            foreach (Equipment obj in lstEquipment)
+                            {
+                                <option value="@obj.EquipmentID">@obj.Name</option>
+                            }
+                        }
+                    </select>
+                </div>
             </div>
         </div>
         <div class="row">
             <div class="col col-12">
-                <input type="submit" value="save" name="btnSubmit" class="btn btn-sm btn-primary"/>
+                <div class="input-group input-group-sm mb-3">
+                    <span class="input-group-text" id="txtItemCount-sizing-sm">Item Needed</span>
+                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="txtItemCount-sizing-sm" name="txtItemCount">
+                </div>
             </div>
-        </div> 
+        </div>
+        <div class="row">
+            <div class="col col-12">
+                <input type="submit" value="save" name="btnSubmit" class="btn btn-sm btn-primary" />
+            </div>
+        </div>
     }
 
 
