@@ -154,5 +154,38 @@ namespace OST_Inventory_B_2.Models
             connection.Close();
             return dataTable;
         }
+
+        public static int AssignEquipment(int custID,int EquiID, int count,int IsRel)
+        {
+            int result = 0;
+            string ConnString = ConfigurationManager.ConnectionStrings["ConnString"].ConnectionString;
+            SqlConnection sqlConnection = new SqlConnection(ConnString);
+            sqlConnection.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = sqlConnection;
+            cmd.CommandText = "dbo.spOST_InsEquiAssignment";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Clear();
+
+            cmd.Parameters.Add(new SqlParameter("@CustomerID", custID));
+            cmd.Parameters.Add(new SqlParameter("@EquipmentID", EquiID));
+            cmd.Parameters.Add(new SqlParameter("@EquiCount", count));
+            cmd.Parameters.Add(new SqlParameter("@IsRelease", IsRel));
+            cmd.CommandTimeout = 0;
+
+            try
+            {
+                result = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                string sds = ex.Message;
+            }
+
+            cmd.Dispose();
+            sqlConnection.Close();
+
+            return result;
+        }
     }
 }

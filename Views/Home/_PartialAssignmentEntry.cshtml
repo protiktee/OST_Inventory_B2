@@ -11,9 +11,10 @@
 
         <div class="row">
             <div class="col col-12">
+                <input type="hidden" id="hdCustomerID" name="hdCustomerID" value=""/>
                 <div class="input-group input-group-sm mb-3">
                     <span class="input-group-text" id="ddlCustomerName-sizing-sm">Customer Name</span>
-                    <select type="text" class="form-control" aria-label="Sizing example input" aria-describedby="ddlCustomerName-sizing-sm" name="ddlCustomerName">
+                    <select type="text" class="form-control" aria-label="Sizing example input" aria-describedby="ddlCustomerName-sizing-sm" name="ddlCustomerName" onchange="$('#hdCustomerID').val($('#ddlCustomerName').val())">
                         @{ 
                             var pDataCust = (from p in dtCustomer.AsEnumerable()
                                              select new
@@ -33,10 +34,11 @@
         </div>
         <div class="row">
             <div class="col col-12">
+                <input type="hidden" id="hdEquipmentID" name="hdEquipmentID" value="" />
                 <div class="input-group input-group-sm mb-3">
                     <span class="input-group-text" id="ddlEquipmentName-sizing-sm">Equipment Name</span>
-                    <select type="text" class="form-control" aria-label="Sizing example input" aria-describedby="ddlEquipmentName-sizing-sm" name="ddlEquipmentName">
-                        @{ 
+                    <select type="text" class="form-control" aria-label="Sizing example input" aria-describedby="ddlEquipmentName-sizing-sm" name="ddlEquipmentName" onchange="$('#hdEquipmentID').val($('#ddlEquipmentName').val())">
+                        @{
                             foreach (Equipment obj in lstEquipment)
                             {
                                 <option value="@obj.EquipmentID">@obj.Name</option>
@@ -56,10 +58,11 @@
         </div>
         <div class="row">
             <div class="col col-12">
+                <input id="chkIsreleased" type="checkbox"  name="chkIsreleased"/> Is Released
                 <input type="submit" value="save" name="btnSubmit" class="btn btn-sm btn-primary" />
             </div>
         </div>
     }
 
-
+    
 </div>

@@ -92,7 +92,15 @@
         });
     }
 </script>
-
+<script>
+    $(document).ready(function () {
+        $('body').find('.clsDynamicLinkText').each(function () {
+            var id = $(this).html();
+            $(this).after(`<input type="submit" class='btn btn-sm btn-primary' id='btnSubmit_${id}' name="btnSubmit" value="Select" onclick="alert(document.getElementById('btnSelectedCustID_${id}').value)"/><input type="hidden" id='btnSelectedCustID_${id}' name="btnSelectedCustID" value="${id}"/>`)
+            $(this).html('')
+        }) 
+    })
+</script>
 <div class="row">
     <div class="col col-6">
         <div class="card text-center">
@@ -103,47 +111,7 @@
             <div class="card-body">
                 <div style="border:1px solid #b6ff00;max-height:400px;overflow-y:auto">
                     <table style="width:100%">
-                        @Html.Raw((String)ViewBag.dataTable)
-                        @*<tr style="background:aliceblue">
-                                <th style="display:none">ID</th>
-                                <th>Name</th>
-                                <th>Count</th>
-                                <th>Date</th>
-                            </tr>*@
-                        @{
-                            @*System.Data.DataTable dataTable = new System.Data.DataTable();
-                                dataTable = Equipment.dtEquipment();
-
-                                var pData = (from p in dataTable.AsEnumerable()
-                                             select new
-                                             {
-                                                 EquipmentID = p.Field<Int32>("EquipmentId"),
-                                                 Name = p.Field<string>("EquipmentName"),
-                                                 Count = p.Field<Int32>("Quantity"),
-                                                 //  Stock
-                                                 EntryDate = p.Field<DateTime>("EntryDate")
-                                             }
-                                             ).ToList();
-                                foreach (var obj in pData)
-                                {
-                                    <tr>
-                                        <td style="display:none">@obj.EquipmentID</td>
-                                        <td>@obj.Name</td>
-                                        <td>@obj.Count</td>
-                                        <td>@obj.EntryDate</td>
-                                    </tr>
-                                }*@
-                            @*List<Equipment> equipment = Equipment.LstEquipment();
-                                foreach (Equipment obj in equipment)
-                                {
-                                    <tr>
-                                        <td style="display:none">@obj.EquipmentID</td>
-                                        <td>@obj.Name</td>
-                                        <td>@obj.Count</td>
-                                        <td>@obj.EntryDate</td>
-                                    </tr>
-                                }*@
-                        }
+                        @Html.Raw((String)ViewBag.dataTable) 
                     </table>
                 </div>
 
@@ -157,14 +125,17 @@
         <div class="card text-center">
             <div class="card-header">
                 Assigned Equipment
-                <button class="btn btn-primary" style="float:right" onclick="return ShowAssignmentEntryModal()">+</button>
+                <button class="btn btn-primary" style="float:right" onclick="return ShowAssignmentEntryModal()">+  -</button>
             </div>
             <div class="card-body">
-                <div style="border:1px solid #b6ff00;max-height:400px;overflow-y:auto">
+                <div style="border:1px solid #b6ff00;max-height:400px;overflow-y:auto"> 
                     <table style="width:100%"> 
                         @{
                             DataTable dtAssignedList = Equipment.LstAssignedEquipment();
-                            string custData=MVCViewToolKit.DynamicTableMaker.MakeTableDynamic(dtAssignedList,"CustomerID");
+                            string[] arrData = { "CustomerID", "CustomerName", "EquipmentName", "EquiCount" };//CustomerID	CustomerName	EquipmentName	EquiCount	Loggeduser 
+                            string[] arrCap = { "", "Customer Name", "Equipment Name", "Assigned" };
+                            string custData=MVCViewToolKit.DynamicTableMaker.MakeTableDynamic(dtAssignedList, arrData, arrCap, "CustomerID",5);
+                            
                         }
                         @Html.Raw(custData)
                     </table>

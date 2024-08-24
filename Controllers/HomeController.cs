@@ -1,6 +1,7 @@
 ﻿using OST_Inventory_B_2.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Helpers;
@@ -91,17 +92,43 @@ namespace OST_Inventory_B_2.Controllers
         [HttpPost]
         public ActionResult SaveAssignment(FormCollection formCollection, string btnSubmit)
         {
+            
             Session["sessionMsg"] = "";
             if (btnSubmit == "save")
             {
-                string Name = formCollection["txtEquipmentName"].ToString();
-                int Count = Convert.ToInt32(formCollection["txtEquipmentCount"].ToString());
+                int customerid= Convert.ToInt32(formCollection["ddlCustomerName"].ToString());
+                int equipmentid = Convert.ToInt32(formCollection["ddlEquipmentName"].ToString());
+                int assignCount = Convert.ToInt32(formCollection["txtItemCount"].ToString());
 
-                int result = Equipment.SaveEquipment(Name, Count);
-                if (result == 1)
+                DataTable dataTable = Equipment.dtEquipment();
+                var equipmentStock = (from p in dataTable.AsEnumerable()
+                                      where p.Field<Int32>("EquipmentId") == equipmentid
+                                      select p.Field<Int32>("Stock")
+                                    ).SingleOrDefault();
+
+
+                if (assignCount <= Convert.ToInt32(equipmentStock) && assignCount > 0)
                 {
-                    Session["sessionMsg"] = "Save Successfully";
+                    string sdsd = formCollection["chkIsreleased"].ToString();
+                    int IsReleased = 0;
+                    if (formCollection["chkIsreleased"].ToString().ToLower() == "on")
+                        IsReleased = 1;
+                    int result = Equipment.AssignEquipment(customerid, equipmentid, assignCount, IsReleased);
+                    if (result == 1)
+                    {
+
+                        Session["sessionMsg"] =( IsReleased == 1 ? "Item Released Successfully" : "Save Successfully");
+                         
+                    }
                 }
+                else
+                {
+                    if (assignCount == 0)
+                        Session["sessionMsg"] = "Assignment must be > 0 ";
+                    if (assignCount > Convert.ToInt32(equipmentStock))
+                        Session["sessionMsg"] = "Assignment must be <= Stock";
+                }
+                
             }
             return RedirectToAction("DashBoard");
         }
