@@ -36,7 +36,7 @@
     @{
         if (@Session["User"] == null)
         {
-            Response.Redirect(Url.Action("Login", "Home"));
+            Response.Redirect(Url.Action("Login", "Auth"));
         }
         string SessionMsg = "";
         if (@Session["sessionMsg"] != null)

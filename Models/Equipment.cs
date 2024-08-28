@@ -129,23 +129,63 @@ namespace OST_Inventory_B_2.Models
             return dataTable;
             //return list;
         }
-        public static List<Equipment> LstAssignedEquipment()
+        public static DataTable LstAssignedEquipment()
         {
-            List<Equipment> list = new List<Equipment>();
+            //List<Equipment> plstData = new List<Equipment>();
+            DataTable dataTable = new DataTable();
+            string ConnString = ConfigurationManager.ConnectionStrings["ConnString"].ConnectionString;
+            //ApplciationName
+            SqlConnection connection = new SqlConnection(ConnString);
+            connection.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = connection;
+            cmd.CommandText = "dbo.spOsp_LstCustomerEquiipment";
+            //cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Clear();
+            //cmd.Parameters.Add(new SqlParameter("@UserName", this.UserName));
+            //cmd.Parameters.Add(new SqlParameter("@Password", this.Password));
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandTimeout = 0;
 
-            for (int i = 0; i < 30; i++)
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            adapter.Fill(dataTable);
+
+            cmd.Dispose();
+            connection.Close();
+            return dataTable;
+        }
+
+        public static int AssignEquipment(int custID,int EquiID, int count,int IsRel)
+        {
+            int result = 0;
+            string ConnString = ConfigurationManager.ConnectionStrings["ConnString"].ConnectionString;
+            SqlConnection sqlConnection = new SqlConnection(ConnString);
+            sqlConnection.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = sqlConnection;
+            cmd.CommandText = "dbo.spOST_InsEquiAssignment";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Clear();
+
+            cmd.Parameters.Add(new SqlParameter("@CustomerID", custID));
+            cmd.Parameters.Add(new SqlParameter("@EquipmentID", EquiID));
+            cmd.Parameters.Add(new SqlParameter("@EquiCount", count));
+            cmd.Parameters.Add(new SqlParameter("@IsRelease", IsRel));
+            cmd.CommandTimeout = 0;
+
+            try
             {
-                Equipment equipment = new Equipment();
-                equipment.Name = "Laptop " + i.ToString();
-                equipment.Count = i * 5;
-                equipment.EntryDate = DateTime.Now.Date;
-
-                equipment.Member.MemberName = "Member " + i.ToString();
-                equipment.Member.MemberDesignation = "SSE";
-                equipment.Member.MobileNumber = "1245869";
-                list.Add(equipment);
+                result = cmd.ExecuteNonQuery();
             }
-            return list;
+            catch (Exception ex)
+            {
+                string sds = ex.Message;
+            }
+
+            cmd.Dispose();
+            sqlConnection.Close();
+
+            return result;
         }
     }
 }
